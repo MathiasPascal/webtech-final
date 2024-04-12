@@ -1,0 +1,126 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    background-color: #b31616;
+    color: #fff;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #b31616;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* About Us */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-content h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+/* Contact */
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.contact-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.contact-content h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.contact-content p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.contact-content form {
+    margin-top: 20px;
+}
+
+.contact-content form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-content form input,
+.contact-content form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-content form button {
+    background-color: #f44336;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-content form button:hover {
+    background-color: #d32f2f;
+}
+
+.contact-image img {
+    max-width: 400px;
+    border-radius: 5px;
+}
+

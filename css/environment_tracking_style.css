@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #b31616;
+    color: #fff;
+    padding: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 10px 0;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    color: blueviolet;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 20%;
+    width: 50%; /* Adjust width to increase image size */
+    height: auto; /* Maintain aspect ratio */
+}
+
