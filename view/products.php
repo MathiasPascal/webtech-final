@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - Electronic Scrap Products</title>
     <link rel="stylesheet" href="../css/product_style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -22,110 +23,73 @@
         </nav>
     </header>
 
-    <section class="product-details">
-        <!-- Product 1 -->
-        <div class="product">
-            <div class="product-image">
-                <img src="image.png" alt="Product 1 Image">
-            </div>
-            <div class="product-info">
-                <h2>Computer Board</h2>
-                <p>Description: Great boards only. No Inferior products.</p>
-                <p>Condition: Used</p>
-                <p>Quantity Available: 10</p>
-                <p>Price: $50.00</p>
-                <form action="add_to_cart.php" method="post">
-                    <input type="hidden" name="product_id" value="1"> 
-                    <input type="hidden" name="price" value="50.00"> 
-                    <button type="submit">Add to Cart</button>
-
-                </form>
-
-            </div>
-        </div>
-
-        <!-- Product 2 -->
-        <div class="product">
-            <div class="product-image">
-                <img src="image.png" alt="Product 2 Image">
-            </div>
-            <div class="product-info">
-                <h2>Radio Board</h2>
-                <p>Description: Great boards only. No Inferior products.</p>
-                <p>Condition: New</p>
-                <p>Quantity Available: 5</p>
-                <p>Price: $100.00</p>
-                <form action="add_to_cart.php" method="post">
-                    <input type="hidden" name="product_id" value="2"> 
-                    <input type="hidden" name="price" value="100.00"> 
-                    <button type="submit">Add to Cart</button>
-
-                </form>
-            </div>
-        </div>
-
-       
-
-        <div class="product">
-            <div class="product-image">
-                <img src="image.png" alt="Product 3 Image">
-            </div>
-            <div class="product-info">
-                <h2>DVD Board</h2>
-                <p>Description: Great boards only. No Inferior products.</p>
-                <p>Condition: New</p>
-                <p>Quantity Available: 5</p>
-                <p>Price: $100.00</p>
-                <form action="add_to_cart.php" method="post">
-                    <input type="hidden" name="product_id" value="3"> 
-                    <input type="hidden" name="price" value="100.00"> 
-                    <button type="submit">Add to Cart</button>
-
-                </form>
-            </div>
-        </div>
-
-        <div class="product">
-            <div class="product-image">
-                <img src="image.png" alt="Product 4 Image">
-            </div>
-            <div class="product-info">
-                <h2>Phone Board</h2>
-                <p>Description: Great boards only. No Inferior products.</p>
-                <p>Condition: New</p>
-                <p>Quantity Available: 5</p>
-                <p>Price: $100.00</p>
-                <form action="add_to_cart.php" method="post">
-                    <input type="hidden" name="product_id" value="4"> 
-                    <input type="hidden" name="price" value="100.00"> 
-                    <button type="submit">Add to Cart</button>
-
-                </form>
-            </div>
-        </div>
-
-        <div class="product">
-            <div class="product-image">
-                <img src="image2.jpg" alt="Product 5 Image">
-            </div>
-            <div class="product-info">
-                <h2>Coverter Catalyst</h2>
-                <p>Description: BMW Converter catalyst. New Generation.</p>
-                <p>Condition: New</p>
-                <p>Quantity Available: 5</p>
-                <p>Price: $100.00</p>
-                <form action="add_to_cart.php" method="post">
-                    <input type="hidden" name="product_id" value="5"> 
-                    <input type="hidden" name="price" value="100.00"> 
-                    <button type="submit">Add to Cart</button>
-
-                </form>
-            </div>
-        </div>
-
+    <section class="product-details" id="products">
+        <!-- Products will be inserted here by jQuery -->
     </section>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '../action/fetch_products_action.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data, function(key, product) {
+                        var productDiv = `
+                    <div class="product">
+                        <div class="product-image">
+                        <img src="${product.image}" alt="Product ${product.ProductID} Image">                                <div class="product-info">
+                            <h2>${product.Name}</h2>
+                            <p>Description: ${product.Description}</p>
+                            <p>Condition: ${product.Condition}</p>
+                            <p>Price: $${product.Price}</p>
+                            <form class="add-to-cart-form" action="../action/add_to_cart_action.php" method="post">
+                                <input type="hidden" name="product_id" value="${product.ProductID}"> 
+                                <input type="hidden" name="price" value="${product.Price}">
+                                <input type="number" name="quantity" min="1" max="100" value="1"> <!-- Quantity field --> 
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>`;
+                        $('#products').append(productDiv);
+                    });
 
+                    // Check if a product was added to the cart
+                    var urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.has('product_added')) {
+                        // Display a SweetAlert
+                        swal("Success!", "Product added to cart!", "success");
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+            // Handle form submission
+            $(document).on('submit', '.add-to-cart-form', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            // Redirect back to the products page with a query parameter
+                            window.location.href = 'products.php?product_added=true';
+                        } else {
+                            swal("Error!", data.message, "error");
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

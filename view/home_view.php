@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electronic Scrap Products</title>
     <link rel="stylesheet" href="../css/index_style.css">
 </head>
+
 <body>
     <header>
         <h1>Electronic Scrap Products</h1>
@@ -24,9 +26,9 @@
                 <li><a href="../login/logout_view.php">Logout</a></li> <!-- Logout button -->
             </ul>
         </nav>
-        
+
     </header>
-    
+
     <section class="landing">
         <div class="landing-content">
             <h2>Welcome to our Electronic Scrap Products Platform</h2>
@@ -36,21 +38,31 @@
     </section>
 
     <section class="sidebar">
-    <?php
-    // Fetch the number of orders from the database
-    include '../settings/connection.php';
-    $sql = "SELECT COUNT(*) as orderCount FROM orders WHERE buyer_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $_SESSION['bid']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    echo "<p>You have made " . $row['orderCount'] . " orders.</p>";
+        <?php
+        // Fetch the number of orders from the database
+        include '../settings/connection.php';
+        $sql = "SELECT COUNT(*) as orderCount FROM shoppingcart WHERE BuyerID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $_SESSION['bid']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        echo "<p style='color: purple; font-size: 16px;'>You have made " . $row['orderCount'] . " orders.</p>";
 
-    
-    ?>
+        // Fetch the product name, quantity, and price from the shoppingcart table
+        $sql = "SELECT p.Name, s.Quantity FROM shoppingcart s JOIN products p ON s.ProductID = p.ProductID WHERE s.BuyerID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $_SESSION['bid']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            echo "<p>Product: " . $row['Name'] . "</p>";
+            echo "<p>Quantity: " . $row['Quantity'] . "</p>";
+        }
+        ?>
     </section>
 
-    
+
 </body>
+
 </html>

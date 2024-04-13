@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Electronic Scrap Products</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
     <header>
         <h1>Electronic Scrap Products</h1>
@@ -19,12 +21,12 @@
             </ul>
         </nav>
     </header>
-    
+
     <section class="contact">
         <div class="contact-content">
             <h2>Contact Us</h2>
             <p>Have a question or feedback? We'd love to hear from you!</p>
-            <form action="#" method="post">
+            <form action="mailto:pascal.mathias30@gmail.com?subject=Your%20Subject&body=Your%20Message" method="post">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
                 <label for="email">Email:</label>
@@ -34,11 +36,10 @@
                 <button type="submit">Send Message</button>
             </form>
         </div>
-        
+
     </section>
 
-    <footer>
-        <p>&copy; 2024 Electronic Scrap Products. All rights reserved.</p>
-    </footer>
+    
 </body>
+
 </html>

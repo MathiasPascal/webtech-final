@@ -30,8 +30,6 @@
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Electronic Scrap Products. All rights reserved.</p>
-    </footer>
+    
 </body>
 </html>

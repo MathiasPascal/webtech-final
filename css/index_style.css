@@ -82,9 +82,12 @@ nav ul li a {
 }
 
 .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 200px;
-    float: left;
     padding: 10px;
     margin-right: 10px;
-    background-color: #f0f0f0;
+    background-color:red;
+    color: red;
 }
