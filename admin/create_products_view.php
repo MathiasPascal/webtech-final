@@ -16,10 +16,12 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'psk30curry@gmail.com')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Product</title>
     <link rel="stylesheet" href="../css/create_products_view_style.css">
+    <!-- Include SweetAlert2 library -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <form action="create_products_action.php" method="post" enctype="multipart/form-data">
+    <form id="productForm" action="create_products_action.php" method="post" enctype="multipart/form-data">
         <label for="ProductID">Product ID:</label><br>
         <input type="number" id="ProductID" name="ProductID" required><br>
 
@@ -40,6 +42,19 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'psk30curry@gmail.com')
 
         <input type="submit" value="Create Product">
     </form>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // prevent form from submitting normally
+            // show sweet alert
+            Swal.fire({
+                title: 'Success!',
+                text: 'Product created successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
 </body>
 
 </html>
